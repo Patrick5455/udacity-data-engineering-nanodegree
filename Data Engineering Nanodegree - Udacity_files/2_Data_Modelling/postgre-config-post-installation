@@ -1,0 +1,163 @@
+patrick@patrick-ojunde:~$ ls /etc/postgresql
+12
+patrick@patrick-ojunde:~$ ls /etc/postgresql/12
+main
+patrick@patrick-ojunde:~$ ls /etc/postgresql/12/main
+conf.d  environment  pg_ctl.conf  pg_hba.conf  pg_ident.conf  postgresql.conf  start.conf
+patrick@patrick-ojunde:~$ service postgresql
+Usage: /etc/init.d/postgresql {start|stop|restart|reload|force-reload|status} [version ..]
+patrick@patrick-ojunde:~$ service postgresql status
+● postgresql.service - PostgreSQL RDBMS
+   Loaded: loaded (/lib/systemd/system/postgresql.service; enabled; vendor preset: enabled)
+   Active: active (exited) since Thu 2020-06-11 09:09:02 WAT; 2min 31s ago
+ Main PID: 3012 (code=exited, status=0/SUCCESS)
+    Tasks: 0 (limit: 4915)
+   CGroup: /system.slice/postgresql.service
+
+Jun 11 09:09:02 patrick-ojunde systemd[1]: Starting PostgreSQL RDBMS...
+Jun 11 09:09:02 patrick-ojunde systemd[1]: Started PostgreSQL RDBMS.
+patrick@patrick-ojunde:~$ sudo su postgres
+[sudo] password for patrick: 
+postgres@patrick-ojunde:/home/patrick$ psql
+psql (12.3 (Ubuntu 12.3-1.pgdg18.04+1))
+Type "help" for help.
+
+postgres=# /d
+postgres-# \d
+Did not find any relations.
+postgres-# \l
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ postgres  | postgres | UTF8     | en_NG   | en_NG | 
+ template0 | postgres | UTF8     | en_NG   | en_NG | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_NG   | en_NG | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(3 rows)
+
+postgres-# \d
+Did not find any relations.
+postgres-# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres-# CREATE USER patrick WITH PASSWORD "OPEpatofat"
+postgres-# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres-# CREATE USER patrick WITH PASSWORD "OPEpatofat";
+ERROR:  syntax error at or near "/"
+LINE 1: /d
+        ^
+postgres=# CREATE USER patrick WITH PASSWORD "OPEpatofat";\du
+ERROR:  syntax error at or near ""OPEpatofat""
+LINE 1: CREATE USER patrick WITH PASSWORD "OPEpatofat";
+                                          ^
+                                   List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres=# CREATE USER patrick WITH PASSWORD 'OPEpatofat';
+CREATE ROLE
+postgres=# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ patrick   |                                                            | {}
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres=# ALTER USER patrick WITH SUPERUSER
+postgres-# ALTER USER patrick WITH SUPERUSER;
+ERROR:  syntax error at or near "ALTER"
+LINE 2: ALTER USER patrick WITH SUPERUSER;
+        ^
+postgres=# ALTER USER patrick WITH SUPERUSER;
+ALTER ROLE
+postgres=# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ patrick   | Superuser                                                  | {}
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres=# \l
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ postgres  | postgres | UTF8     | en_NG   | en_NG | 
+ template0 | postgres | UTF8     | en_NG   | en_NG | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_NG   | en_NG | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(3 rows)
+
+postgres=# \d
+Did not find any relations.
+postgres=# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ patrick   | Superuser                                                  | {}
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres=# \l
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ postgres  | postgres | UTF8     | en_NG   | en_NG | 
+ template0 | postgres | UTF8     | en_NG   | en_NG | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_NG   | en_NG | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(3 rows)
+
+postgres=# \t
+Tuples only is on.
+postgres=# \d
+Did not find any relations.
+postgres=# \du
+ patrick   | Superuser                                                  | {}
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres=# \t
+Tuples only is off.
+postgres=# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ patrick   | Superuser                                                  | {}
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres=# CREATE USER guest;
+CREATE ROLE
+postgres=# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ guest     |                                                            | {}
+ patrick   | Superuser                                                  | {}
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres=# DROP USER guest
+postgres-# DROP USER guest;
+ERROR:  syntax error at or near "DROP"
+LINE 2: DROP USER guest;
+        ^
+postgres=# DROP USER guest;
+DROP ROLE
+postgres=# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ patrick   | Superuser                                                  | {}
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres=# 
+
