@@ -3,8 +3,11 @@
 #### In this course, I learned from industry experts how to do the following data engineering tasks:
 
 > Design of Data Models viz SQL (postgre) & NoSql (Apache Casssandra) - (ERD, FACT & DIMENSIONAL TABLES)
+
 > Build Data Warehouses and Data Lakes with `Spark`
+
 > Automate Data Pipelines with `Apaache Airflow`
+
 > And work with massive datasets
 
 ### Projects:
