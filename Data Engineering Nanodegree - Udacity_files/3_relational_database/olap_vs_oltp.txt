@@ -1,0 +1,23 @@
+Note - Correction from video:
+
+At the 1:04 mark of the video, the instructor mistakenly says:
+
+    "OLTP queries will have little aggregations really, if any, while OLTP will heavily focus on aggregations."
+
+The instructor misspoke here. The CORRECT statement is:
+
+    "OLTP queries will have little aggregations really, if any, while OLAP will heavily focus on aggregations."
+
+Online Analytical Processing (OLAP):
+Databases optimized for these workloads allow for complex analytical and ad hoc queries, including aggregations. These type of databases are optimized for reads.
+
+Online Transactional Processing (OLTP):
+Databases optimized for these workloads allow for less complex queries in large volume. The types of queries for these databases are read, insert, update, and delete.
+
+The key to remember the difference between OLAP and OLTP is analytics (A) vs transactions (T). If you want to get the price of a shoe then you are using OLTP (this has very little or no aggregations). If you want to know the total stock of shoes a particular store sold, then this requires using OLAP (since this will require aggregations).
+Additional Resource on the difference between OLTP and OLAP:
+
+This Stackoverflow post describes it well.
+
+Note: We will also be going more in depth with OLAP vs OLTP in Course 3. Cloud Data Warehouses
+
